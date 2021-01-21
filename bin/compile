@@ -11,14 +11,14 @@ indent() {
 
 VENDOR_DIR=$BUILD_DIR/vendor
 ORACLE_DIR=$VENDOR_DIR/oracle
-INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient_12_2
+INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient_21_1
 PROFILE_D_DIR=$BUILD_DIR/.profile.d
 
-BASIC_FILENAME=instantclient-basic-linux.x64-12.2.0.1.0.zip
-SDK_FILENAME=instantclient-sdk-linux.x64-12.2.0.1.0.zip
+BASIC_FILENAME=instantclient-basic-linux.x64-21.1.0.0.0.zip
+SDK_FILENAME=instantclient-sdk-linux.x64-21.1.0.0.0.zip
 
-MIRROR_BASIC=https://www.dropbox.com/s/sn4tdjnsckkczuu/instantclient-basic-linux.x64-12.2.0.1.0.zip?dl=0
-MIRROR_SDK=https://www.dropbox.com/s/98bab146vtm20uv/instantclient-sdk-linux.x64-12.2.0.1.0.zip?dl=0
+MIRROR_BASIC=https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-basic-linux.x64-21.1.0.0.0.zip
+MIRROR_SDK=https://download.oracle.com/otn_software/linux/instantclient/211000/instantclient-sdk-linux.x64-21.1.0.0.0.zip
 
 if [ ! -f $CACHE_DIR/$BASIC_FILENAME ]; then
     indent "Downloading $BASIC_FILENAME..."
@@ -37,7 +37,7 @@ indent "Extracting $SDK_FILENAME..."
 unzip -qq $CACHE_DIR/$SDK_FILENAME -d $ORACLE_DIR
 
 indent "Symlinking libclntsh.so..."
-ln -s libclntsh.so.12.1 $INSTANTCLIENT_DIR/libclntsh.so
+ln -s libclntsh.so.21.1 $INSTANTCLIENT_DIR/libclntsh.so
 
 export OCI_LIB_DIR=$INSTANTCLIENT_DIR
 export OCI_INC_DIR=$INSTANTCLIENT_DIR/sdk/include
@@ -52,7 +52,7 @@ indent "Saving environment setup script..."
 mkdir -p $PROFILE_D_DIR
 cat << EOF > $PROFILE_D_DIR/oracle.sh
 #!/usr/bin/env bash
-export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$HOME/.apt/lib/x86_64-linux-gnu:$HOME/vendor/oracle/instantclient_12_2"
+export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$HOME/.apt/lib/x86_64-linux-gnu:$HOME/vendor/oracle/instantclient_21_1"
 EOF
 
 indent "Done."
